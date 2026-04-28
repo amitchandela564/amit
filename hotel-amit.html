@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Amit — Luxury & Premium Stays</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --cream: #FAF6EF;
+    --dark: #1A1410;
+    --charcoal: #2D2520;
+    --mid: #6B5D52;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: linear-gradient(to bottom, rgba(26,20,16,0.95), transparent);
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    font-weight: 300;
+  }
+  .logo span { font-style: italic; }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul li a {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream); text-decoration: none; font-weight: 400;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover { color: var(--gold); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 0.55rem 1.4rem;
+    letter-spacing: 0.18em;
+    font-size: 0.68rem !important;
+    cursor: pointer;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(26,20,16,0.75) 0%, rgba(26,20,16,0.3) 50%, rgba(26,20,16,0.85) 100%),
+      url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1600&q=80') center/cover no-repeat;
+    transform: scale(1.03);
+    animation: heroZoom 14s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.03); }
+    to   { transform: scale(1.10); }
+  }
+  .hero-content {
+    position: relative; text-align: center; z-index: 2;
+    animation: fadeUp 1.4s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.4rem;
+    animation: fadeUp 1.4s 0.2s ease forwards; opacity: 0;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 1.05;
+    letter-spacing: 0.04em;
+    animation: fadeUp 1.4s 0.4s ease forwards; opacity: 0;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 0.82rem; letter-spacing: 0.15em; color: rgba(250,246,239,0.7);
+    margin-top: 1.2rem; text-transform: uppercase;
+    animation: fadeUp 1.4s 0.6s ease forwards; opacity: 0;
+  }
+  .hero-divider {
+    width: 60px; height: 1px; background: var(--gold);
+    margin: 2rem auto;
+    animation: fadeUp 1.4s 0.7s ease forwards; opacity: 0;
+  }
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 600;
+    padding: 1rem 2.8rem;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s;
+    animation: fadeUp 1.4s 0.9s ease forwards; opacity: 0;
+    cursor: pointer; border: none;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-block; margin-left: 1rem;
+    border: 1px solid var(--cream); color: var(--cream);
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 500; padding: 1rem 2.4rem; text-decoration: none;
+    transition: all 0.3s;
+    animation: fadeUp 1.4s 1s ease forwards; opacity: 0;
+  }
+  .btn-outline:hover { background: var(--cream); color: var(--dark); }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(250,246,239,0.5);
+    animation: fadeUp 1.4s 1.2s ease forwards; opacity: 0;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 300; line-height: 1.15;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+  .gold-rule {
+    width: 50px; height: 1px; background: var(--gold); margin: 1.8rem 0;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--charcoal);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .about-text p {
+    color: rgba(250,246,239,0.7); line-height: 1.9; font-size: 0.88rem;
+    margin-bottom: 1.2rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+  }
+  .stat-item { border-left: 1px solid var(--border); padding-left: 1.2rem; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; color: var(--gold); line-height: 1; font-weight: 300;
+  }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-top: 0.3rem; }
+  .about-image {
+    position: relative; height: 520px;
+  }
+  .about-image .img-main {
+    width: 85%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .about-image .img-accent {
+    position: absolute; bottom: -2.5rem; right: 0;
+    width: 55%; height: 220px; object-fit: cover;
+    border: 4px solid var(--charcoal);
+  }
+  .about-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── ROOMS ── */
+  .rooms { background: var(--dark); }
+  .rooms-header { text-align: center; max-width: 600px; margin: 0 auto 4.5rem; }
+  .rooms-header .gold-rule { margin: 1.8rem auto; }
+  .rooms-header p { color: rgba(250,246,239,0.65); font-size: 0.86rem; line-height: 1.8; }
+  .rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .room-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--charcoal);
+  }
+  .room-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    filter: brightness(0.75);
+  }
+  .room-card:hover img { transform: scale(1.08); filter: brightness(0.55); }
+  .room-card .room-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,20,16,0.92) 0%, transparent 60%);
+    padding: 2rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .room-tag {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .room-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; line-height: 1.2;
+  }
+  .room-price {
+    margin-top: 0.7rem; font-size: 0.75rem; color: rgba(250,246,239,0.7);
+    letter-spacing: 0.1em;
+  }
+  .room-price strong { color: var(--gold-light); font-weight: 400; font-size: 1.1rem; }
+  .room-hover-info {
+    position: absolute; top: 1.8rem; right: 1.8rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .room-card:hover .room-hover-info { opacity: 1; }
+  .badge {
+    font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+    background: rgba(201,168,76,0.15); border: 1px solid var(--gold);
+    color: var(--gold); padding: 0.3rem 0.7rem; text-align: center;
+  }
+  .room-cta {
+    position: absolute; bottom: 5.5rem; right: 2rem;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s, transform 0.4s;
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--gold); color: var(--dark); font-weight: 600;
+    padding: 0.6rem 1.2rem; border: none; cursor: pointer;
+  }
+  .room-card:hover .room-cta { opacity: 1; transform: translateY(0); }
+
+  /* ── AMENITIES ── */
+  .amenities {
+    background: var(--charcoal);
+    text-align: center;
+  }
+  .amenities .section-title, .amenities .section-label { text-align: center; }
+  .amenities .gold-rule { margin: 1.8rem auto; }
+  .amenities-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 4rem;
+  }
+  .amenity-item {
+    padding: 2.5rem 1.5rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .amenity-item::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .amenity-item:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .amenity-item:hover::before { opacity: 1; }
+  .amenity-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+    display: block;
+  }
+  .amenity-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; margin-bottom: 0.6rem;
+  }
+  .amenity-desc { font-size: 0.76rem; color: rgba(250,246,239,0.55); line-height: 1.7; }
+
+  /* ── GALLERY ── */
+  .gallery { background: var(--dark); padding-bottom: 0; }
+  .gallery-header { margin-bottom: 3rem; }
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 4px;
+  }
+  .g-item { overflow: hidden; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; filter: brightness(0.8); }
+  .g-item:hover img { transform: scale(1.06); filter: brightness(1); }
+  .g-item:first-child { grid-row: span 2; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--charcoal); text-align: center; }
+  .testimonials .section-title { text-align: center; }
+  .testimonials .gold-rule { margin: 1.5rem auto; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3.5rem; }
+  .testi-card {
+    border: 1px solid var(--border); padding: 2.5rem 2rem;
+    position: relative;
+  }
+  .testi-card::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; color: var(--gold); opacity: 0.2;
+    position: absolute; top: 0.8rem; left: 1.5rem; line-height: 1;
+  }
+  .testi-text { font-size: 0.84rem; line-height: 1.85; color: rgba(250,246,239,0.75); font-style: italic; margin-bottom: 1.5rem; }
+  .testi-name { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .testi-role { font-size: 0.65rem; color: var(--mid); margin-top: 0.2rem; letter-spacing: 0.1em; }
+  .stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+
+  /* ── BOOKING CTA ── */
+  .booking-cta {
+    background:
+      linear-gradient(rgba(26,20,16,0.82), rgba(26,20,16,0.82)),
+      url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&q=80') center/cover no-repeat fixed;
+    text-align: center; padding: 8rem 4rem;
+  }
+  .booking-cta .section-title { font-size: clamp(2.5rem,5vw,4.5rem); }
+  .booking-cta p { color: rgba(250,246,239,0.65); font-size: 0.86rem; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.9; }
+  .booking-form {
+    display: flex; gap: 0; max-width: 750px; margin: 0 auto; flex-wrap: wrap;
+  }
+  .booking-form input, .booking-form select {
+    flex: 1; min-width: 140px;
+    background: rgba(250,246,239,0.06);
+    border: 1px solid var(--border); border-right: none;
+    color: var(--cream); padding: 1rem 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    outline: none;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .booking-form input::placeholder { color: rgba(250,246,239,0.4); }
+  .booking-form select option { background: var(--charcoal); }
+  .booking-form input:focus, .booking-form select:focus {
+    background: rgba(201,168,76,0.08); border-color: var(--gold);
+  }
+  .booking-form .btn-gold { border-right: none; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #100E0C; padding: 4rem 4rem 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+  .footer-brand .logo { font-size: 2rem; display: block; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.78rem; color: rgba(250,246,239,0.5); line-height: 1.8; max-width: 260px; }
+  .footer-col h4 { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a { font-size: 0.78rem; color: rgba(250,246,239,0.55); text-decoration: none; transition: color 0.3s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 0.7rem; color: rgba(250,246,239,0.35); letter-spacing: 0.08em; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .rooms-grid { grid-template-columns: 1fr; }
+    .amenities-grid { grid-template-columns: repeat(2,1fr); }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .gallery-strip { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .g-item:first-child { grid-row: span 1; }
+    .booking-form { flex-direction: column; }
+    .booking-form input, .booking-form select { border-right: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Hotel <span>Amit</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#booking" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Welcome to Hotel Amit</p>
+    <h1>Where Luxury<br>Meets <em>Elegance</em></h1>
+    <p class="hero-sub">Premium Rooms · Exceptional Service · Unforgettable Stays</p>
+    <div class="hero-divider"></div>
+    <a href="#rooms" class="btn-gold">Explore Rooms</a>
+    <a href="#booking" class="btn-outline">Book Your Stay</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">A Legacy of <em>Refined</em> Hospitality</h2>
+    <div class="gold-rule"></div>
+    <p>Hotel Amit stands as a beacon of refined luxury, offering an unparalleled experience for discerning travelers. Nestled in the heart of the city, our property blends timeless elegance with modern comforts.</p>
+    <p>Each detail — from hand-picked furnishings to bespoke service — reflects our unwavering commitment to excellence. We don't just offer accommodation; we curate unforgettable experiences tailored to every guest.</p>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">48</div>
+        <div class="stat-label">Luxury Suites</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years of Excellence</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Guest Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Concierge Service</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-image">
+    <img class="img-main" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Hotel Lobby" style="width:85%;height:100%;object-fit:cover;display:block;">
+    <img class="img-accent" src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80" alt="Hotel Room" style="position:absolute;bottom:-2.5rem;right:0;width:55%;height:220px;object-fit:cover;border:4px solid #2D2520;">
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms" id="rooms">
+  <div class="rooms-header">
+    <p class="section-label">Accommodations</p>
+    <h2 class="section-title">Our <em>Signature</em> Rooms</h2>
+    <div class="gold-rule"></div>
+    <p>From intimate luxury rooms to sprawling premium suites, each space is thoughtfully designed to offer the ultimate comfort and privacy for your stay.</p>
+  </div>
+  <div class="rooms-grid">
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80" alt="Deluxe Room">
+      <div class="room-overlay">
+        <span class="room-tag">Most Popular</span>
+        <h3 class="room-name">Deluxe<br>Room</h3>
+        <p class="room-price">From <strong>₹3,999</strong> / night</p>
+      </div>
+      <div class="room-hover-info">
+        <span class="badge">King Bed</span>
+        <span class="badge">City View</span>
+        <span class="badge">32 m²</span>
+      </div>
+      <button class="room-cta">Book Now</button>
+    </div>
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Premium Suite">
+      <div class="room-overlay">
+        <span class="room-tag">Premium</span>
+        <h3 class="room-name">Premium<br>Suite</h3>
+        <p class="room-price">From <strong>₹7,499</strong> / night</p>
+      </div>
+      <div class="room-hover-info">
+        <span class="badge">King Bed</span>
+        <span class="badge">Pool View</span>
+        <span class="badge">55 m²</span>
+      </div>
+      <button class="room-cta">Book Now</button>
+    </div>
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&q=80" alt="Royal Suite">
+      <div class="room-overlay">
+        <span class="room-tag">Exclusive</span>
+        <h3 class="room-name">Royal<br>Suite</h3>
+        <p class="room-price">From <strong>₹14,999</strong> / night</p>
+      </div>
+      <div class="room-hover-info">
+        <span class="badge">Panoramic</span>
+        <span class="badge">Private Deck</span>
+        <span class="badge">90 m²</span>
+      </div>
+      <button class="room-cta">Book Now</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <p class="section-label">World-Class Facilities</p>
+  <h2 class="section-title">Curated <em>Amenities</em></h2>
+  <div class="gold-rule"></div>
+  <div class="amenities-grid">
+    <div class="amenity-item">
+      <span class="amenity-icon">🍽️</span>
+      <div class="amenity-name">Fine Dining</div>
+      <p class="amenity-desc">Savor exquisite cuisine crafted by our award-winning chefs using seasonal, locally sourced ingredients.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">🏊</span>
+      <div class="amenity-name">Infinity Pool</div>
+      <p class="amenity-desc">A breathtaking rooftop pool with panoramic city views — perfect for a sunrise swim or sunset cocktail.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">💆</span>
+      <div class="amenity-name">Luxury Spa</div>
+      <p class="amenity-desc">Rejuvenate body and mind with our signature treatments, steam rooms, and Ayurvedic therapies.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">🏋️</span>
+      <div class="amenity-name">Fitness Centre</div>
+      <p class="amenity-desc">State-of-the-art equipment, personal trainers, and yoga classes available around the clock.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">🎭</span>
+      <div class="amenity-name">Event Spaces</div>
+      <p class="amenity-desc">Elegant banquet halls and conference rooms tailored for weddings, meetings, and celebrations.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">🚗</span>
+      <div class="amenity-name">Valet & Transfers</div>
+      <p class="amenity-desc">Complimentary valet parking and seamless airport transfers in our luxury fleet.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">🍹</span>
+      <div class="amenity-name">Rooftop Bar</div>
+      <p class="amenity-desc">Unwind with handcrafted cocktails and breathtaking skyline views at our signature rooftop lounge.</p>
+    </div>
+    <div class="amenity-item">
+      <span class="amenity-icon">📶</span>
+      <div class="amenity-name">High-Speed WiFi</div>
+      <p class="amenity-desc">Complimentary ultra-fast WiFi across all areas ensuring seamless connectivity throughout your stay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header" style="padding: 0 0 3rem;">
+    <p class="section-label">Visual Stories</p>
+    <h2 class="section-title">Experience <em>Hotel Amit</em></h2>
+  </div>
+  <div class="gallery-strip">
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80" alt="Hotel"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Pool"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" alt="Spa"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Restaurant"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Suite"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="section-label">Guest Voices</p>
+  <h2 class="section-title">What Our <em>Guests</em> Say</h2>
+  <div class="gold-rule"></div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">An absolutely magnificent stay. The attention to detail in every corner of Hotel Amit is remarkable. The staff made us feel like royalty throughout our visit.</p>
+      <div class="testi-name">Priya Sharma</div>
+      <div class="testi-role">Mumbai · Stayed in Royal Suite</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">The Premium Suite exceeded every expectation. The spa treatments were divine and the rooftop dining experience at sunset was simply unforgettable.</p>
+      <div class="testi-name">Rahul Mehra</div>
+      <div class="testi-role">Delhi · Business Stay</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Celebrated our anniversary here and it was pure magic. From the floral arrangements to the private candlelit dinner — Hotel Amit knows how to create memories.</p>
+      <div class="testi-name">Anita & Vikram Joshi</div>
+      <div class="testi-role">Jaipur · Anniversary Stay</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta" id="booking">
+  <p class="section-label">Reservations</p>
+  <h2 class="section-title">Begin Your <em>Journey</em></h2>
+  <div class="gold-rule" style="margin: 1.5rem auto;"></div>
+  <p>Reserve your stay today and step into a world of unparalleled comfort and luxury. Special rates available for extended stays.</p>
+  <div class="booking-form">
+    <input type="date" placeholder="Check-in">
+    <input type="date" placeholder="Check-out">
+    <select>
+      <option value="">Room Type</option>
+      <option>Deluxe Room</option>
+      <option>Premium Suite</option>
+      <option>Royal Suite</option>
+    </select>
+    <select>
+      <option value="">Guests</option>
+      <option>1 Guest</option>
+      <option>2 Guests</option>
+      <option>3 Guests</option>
+      <option>4 Guests</option>
+    </select>
+    <button class="btn-gold" style="opacity:1;animation:none;">Check Availability</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Hotel <span>Amit</span></span>
+      <p>A sanctuary of luxury and refined hospitality. Creating extraordinary memories for every guest, every stay.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Rooms</h4>
+      <ul>
+        <li><a href="#">Deluxe Room</a></li>
+        <li><a href="#">Premium Suite</a></li>
+        <li><a href="#">Royal Suite</a></li>
+        <li><a href="#">Corporate Rates</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#">Fine Dining</a></li>
+        <li><a href="#">Spa & Wellness</a></li>
+        <li><a href="#">Events & Weddings</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">+91 98765 43210</a></li>
+        <li><a href="#">info@hotelamit.com</a></li>
+        <li><a href="#">MG Road, City Centre</a></li>
+        <li><a href="#">Get Directions</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Hotel Amit. All rights reserved. Crafted with elegance.</p>
+    <p>Privacy Policy · Terms of Service</p>
+  </div>
+</footer>
+
+<script>
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.amenity-item, .testi-card, .room-card, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
